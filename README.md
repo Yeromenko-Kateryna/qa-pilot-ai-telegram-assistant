@@ -1,5 +1,11 @@
 # QA Pilot AI — Telegram QA Assistant with n8n and Gemini
 
+![Project Status](https://img.shields.io/badge/status-MVP%20completed-brightgreen)
+![Built with n8n](https://img.shields.io/badge/built%20with-n8n-orange)
+![Telegram Bot](https://img.shields.io/badge/integration-Telegram%20Bot-blue)
+![AI Model](https://img.shields.io/badge/AI-Google%20Gemini-purple)
+![QA Portfolio](https://img.shields.io/badge/portfolio-QA%20Automation-success)
+
 QA Pilot AI is an AI-powered Telegram assistant designed to support daily QA tasks for a Junior QA / QA Automation Engineer.
 
 The bot helps generate compact test cases, draft structured bug reports, create QA checklists, analyze ambiguous requirements, suggest test data, and provide basic automation hints.
@@ -8,21 +14,52 @@ This project was built as a portfolio project to demonstrate practical no-code/l
 
 ---
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Tech Stack](#tech-stack)
+- [Workflow](#workflow)
+- [Features](#features)
+- [Example Use Cases](#example-use-cases)
+- [Screenshots](#screenshots)
+- [Prompt Design](#prompt-design)
+- [Test Scenarios](#test-scenarios)
+- [QA Improvements Implemented](#qa-improvements-implemented)
+- [Known Limitations](#known-limitations)
+- [Security Notes](#security-notes)
+- [What I Learned](#what-i-learned)
+- [Project Status](#project-status)
+
+---
+
+## Project Overview
+
+| Area | Description |
+|---|---|
+| Project type | AI-powered Telegram QA assistant |
+| Main goal | Support practical QA tasks through a Telegram bot |
+| Automation tool | n8n |
+| AI model | Google Gemini Chat Model |
+| Target user | Junior QA / QA Automation Engineer |
+| Portfolio focus | QA thinking, prompt design, integration testing, documentation |
+
+---
+
 ## Tech Stack
 
-- n8n
-- Telegram Bot API
-- Google Gemini Chat Model
-- n8n AI Agent
-- Prompt Engineering
-- QA Test Design
-- Integration Testing
+- **n8n** — workflow automation
+- **Telegram Bot API** — user interaction channel
+- **Google Gemini Chat Model** — AI response generation
+- **n8n AI Agent** — assistant logic and prompt execution
+- **Prompt Engineering** — QA-focused behavior configuration
+- **QA Test Design** — test cases, checklists, bug reports
+- **Integration Testing** — Telegram + n8n + AI model behavior validation
 
 ---
 
 ## Workflow
 
-The automation workflow is built in n8n:
+The automation workflow is built in n8n.
 
 ```text
 Telegram Trigger → AI Agent → Send a text message
@@ -37,34 +74,38 @@ Telegram Trigger → AI Agent → Send a text message
 4. Google Gemini Chat Model generates the response.
 5. Send a text message returns the answer back to the same Telegram chat.
 
+### Credential Handling
+
 API keys, bot tokens, and n8n credentials are stored inside n8n credentials and are not included in this repository.
 
 ---
 
 ## Features
 
-- Generates positive, negative, and edge test cases
-- Drafts structured bug reports
-- Creates compact QA checklists
-- Analyzes requirements for ambiguity
-- Suggests test data and edge cases
-- Provides basic Playwright / TypeScript automation hints
-- Uses response length control to reduce Telegram message delivery issues
-- Documents integration limitations discovered during testing
+| Feature | Description |
+|---|---|
+| Test case generation | Generates positive, negative, and edge test cases |
+| Bug report drafting | Creates structured bug reports with standard QA fields |
+| QA checklist creation | Produces compact checklists for feature testing |
+| Requirement analysis | Identifies ambiguity and missing acceptance criteria |
+| Test data suggestions | Suggests useful valid, invalid, and edge test data |
+| Automation hints | Provides basic Playwright / TypeScript automation ideas |
+| Telegram response control | Uses length limits to reduce message delivery issues |
+| Integration findings | Documents external API and platform limitations |
 
 ---
 
 ## Example Use Cases
 
-### Test Case Generation
+### 1. Test Case Generation
 
-User request:
+**User request:**
 
 ```text
 Generate exactly 6 login form test cases.
 ```
 
-Bot response includes:
+**Bot response includes:**
 
 - Scope
 - Assumptions
@@ -76,15 +117,16 @@ Bot response includes:
 
 ---
 
-### Bug Report Drafting
+### 2. Bug Report Drafting
 
-User request:
+**User request:**
 
 ```text
-Create a short bug report for: Login button does not work after valid credentials.
+Create a short bug report for:
+Login button does not work after valid credentials.
 ```
 
-Bot response includes:
+**Bot response includes:**
 
 - Title
 - Environment
@@ -98,15 +140,15 @@ Bot response includes:
 
 ---
 
-### QA Checklist Creation
+### 3. QA Checklist Creation
 
-User request:
+**User request:**
 
 ```text
 Create a compact QA checklist for an online shopping cart.
 ```
 
-Bot response includes checklist areas such as:
+**Bot response includes checklist areas such as:**
 
 - Adding items
 - Removing items
@@ -119,15 +161,16 @@ Bot response includes checklist areas such as:
 
 ---
 
-### Requirement Analysis
+### 4. Requirement Analysis
 
-User request:
+**User request:**
 
 ```text
-Analyze this requirement for ambiguity: "User should be able to quickly register on the website."
+Analyze this requirement for ambiguity:
+"User should be able to quickly register on the website."
 ```
 
-Expected bot response identifies:
+**Expected bot response identifies:**
 
 - Ambiguous wording
 - Missing measurable criteria
@@ -142,17 +185,25 @@ Expected bot response identifies:
 
 ![n8n workflow](docs/workflow-screenshot.png)
 
+---
+
 ### Start / Bot Capabilities
 
 ![start demo](docs/telegram-demo-start.png)
+
+---
 
 ### Test Case Generation Demo
 
 ![test cases demo](docs/telegram-demo-test-cases.png)
 
+---
+
 ### Bug Report Demo
 
 ![bug report demo](docs/telegram-demo-bug-report.png)
+
+---
 
 ### QA Checklist Demo
 
@@ -179,6 +230,16 @@ The system prompt defines:
 - Requirement analysis format
 - Rules for avoiding invented project-specific facts
 
+### Main Prompt Goals
+
+| Goal | Implementation |
+|---|---|
+| Keep responses Telegram-friendly | Maximum response length rules |
+| Support QA tasks | Dedicated formats for test cases, checklists, and bug reports |
+| Reduce hallucinations | Rule to avoid invented project-specific facts |
+| Improve usability | Short, structured, practical answers |
+| Support portfolio value | QA-focused examples and documentation |
+
 ---
 
 ## Test Scenarios
@@ -189,7 +250,7 @@ Manual test scenarios for validating the bot are stored in:
 test-scenarios/qa-bot-test-scenarios.md
 ```
 
-Covered scenarios include:
+### Covered Scenarios
 
 - Bot start message
 - Test case generation
@@ -212,6 +273,15 @@ To improve reliability, response length rules were added to:
 
 This helped make bot responses more suitable for Telegram and reduced the risk of message delivery failures.
 
+### Improvement Summary
+
+| Problem Found | Improvement |
+|---|---|
+| AI responses were too long | Added response length rules |
+| Telegram delivery could fail | Added output-length control |
+| Bot could invent missing details | Added prompt rules for assumptions and clarification |
+| External API could be unstable | Documented API quota and availability limitations |
+
 ---
 
 ## Known Limitations
@@ -223,6 +293,14 @@ During testing, the workflow exposed several external integration limitations:
 - Long AI responses could exceed Telegram message delivery limits.
 
 These are external API and platform limitations. The Telegram trigger and n8n message routing were configured successfully.
+
+### Possible Future Reliability Improvements
+
+- Add fallback response path when the AI model is unavailable.
+- Add retry logic for temporary API failures.
+- Add persistent memory after session handling is configured correctly.
+- Export and document the n8n workflow JSON.
+- Add more advanced Playwright-specific QA automation prompts.
 
 ---
 
@@ -250,19 +328,33 @@ If a token is accidentally exposed, it should be revoked and regenerated immedia
 - How to identify and document integration issues
 - How to handle response length constraints in Telegram integrations
 - How external API quotas and service availability can affect automation reliability
+- How to prepare a small automation project for GitHub portfolio presentation
 
 ---
 
 ## Project Status
 
-MVP completed.
+**MVP completed.**
 
-The project demonstrates a working Telegram QA assistant workflow, QA-focused prompt design, documented test scenarios, screenshots, and integration findings.
+The project demonstrates a tested Telegram QA assistant workflow, QA-focused prompt design, documented test scenarios, screenshots, and integration findings.
 
-Future improvements may include:
+### Current State
 
-- adding a fallback response path when the AI model is unavailable;
-- adding retry logic for temporary API failures;
-- adding persistent memory after session handling is configured correctly;
-- exporting and documenting the n8n workflow JSON;
-- adding more advanced Playwright-specific QA automation prompts.
+| Area | Status |
+|---|---|
+| Telegram bot created | Completed |
+| n8n workflow configured | Completed |
+| AI Agent configured | Completed |
+| Gemini model connected | Completed |
+| QA system prompt created | Completed |
+| Demo screenshots added | Completed |
+| Test scenarios documented | Completed |
+| External limitations documented | Completed |
+
+### Future Improvements
+
+- Add fallback response path when the AI model is unavailable.
+- Add retry logic for temporary API failures.
+- Add persistent memory after session handling is configured correctly.
+- Export and document the n8n workflow JSON.
+- Add more advanced Playwright-specific QA automation prompts.
